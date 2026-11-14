@@ -1,0 +1,70 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="loading">正在加载交接班信息...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadShift">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <view wx:if="{{!shift}}" class="card">
+      <view class="shift-hero">
+        <view class="shift-badge">未开班</view>
+        <view class="shift-title">开始今天的营业</view>
+        <view class="muted">请填写备用金后开班，交班时将自动统计收款。</view>
+      </view>
+      <view class="form-line">
+        <text class="item-label">备用金（元）</text>
+        <input class="input item-input" type="digit" placeholder="0.00" value="{{openingCash}}" bindinput="onOpeningInput" />
+      </view>
+      <button class="btn-primary shift-btn" bindtap="openShift" disabled="{{submitting}}">开班</button>
+    </view>
+
+    <block wx:else>
+      <view class="card shift-card">
+        <view class="between">
+          <view>
+            <view class="shift-no">{{shift.shiftNo}}</view>
+            <view class="muted">{{shift.startText}} 开班</view>
+          </view>
+          <view class="status-pill green">{{shift.statusText}}</view>
+        </view>
+        <view class="shift-grid">
+          <view class="shift-item">
+            <view class="shift-value">¥{{shift.openingText}}</view>
+            <view class="shift-label">备用金</view>
+          </view>
+          <view class="shift-item">
+            <view class="shift-value">¥{{shift.cashText}}</view>
+            <view class="shift-label">现金收款</view>
+          </view>
+          <view class="shift-item">
+            <view class="shift-value">¥{{shift.wechatText}}</view>
+            <view class="shift-label">微信收款</view>
+          </view>
+          <view class="shift-item">
+            <view class="shift-value">¥{{shift.alipayText}}</view>
+            <view class="shift-label">支付宝收款</view>
+          </view>
+        </view>
+        <view class="info-row">
+          <text class="label">收银员</text>
+          <text>{{shift.cashierName || '-'}}</text>
+        </view>
+        <view class="info-row">
+          <text class="label">预计现金</text>
+          <text>¥{{shift.expectedText}}</text>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">交班核对</view>
+        <view class="form-line">
+          <text class="item-label">实收现金（元）</text>
+          <input class="input item-input" type="digit" placeholder="请输入实收现金" value="{{actualCash}}" bindinput="onActualInput" />
+        </view>
+        <view class="form-line">
+          <text class="item-label">差异原因</text>
+          <input class="input item-input" placeholder="有差异时填写" value="{{diffReason}}" bindinput="onDiffReasonInput" />
+        </view>
+        <button class="btn-primary shift-btn" bindtap="closeShift" disabled="{{submitting}}">交班</button>
+      </view>
+    </block>
+  </block>
+</view>

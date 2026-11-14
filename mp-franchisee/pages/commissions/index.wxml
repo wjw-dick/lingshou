@@ -1,0 +1,36 @@
+<view class="page">
+  <view class="summary-card">
+    <view class="summary-label">累计分账金额</view>
+    <view class="summary-value">¥{{totalText}}</view>
+    <view class="summary-sub">按门店销售与合同比例计算</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading">正在加载分账明细...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadData">{{error}}，点击重试</view>
+  <view wx:elif="{{!list.length}}" class="empty">暂无分账记录</view>
+
+  <view wx:else>
+    <view class="commission-card" wx:for="{{list}}" wx:key="id">
+      <view class="between">
+        <view class="period">{{item.period || '本期'}}</view>
+        <view class="status-pill {{item.statusClass}}">{{item.statusText}}</view>
+      </view>
+      <view class="muted store-line">门店 #{{item.storeId}}</view>
+      <view class="amount-row">
+        <view class="amount-item">
+          <view class="amount-value">¥{{item.salesText}}</view>
+          <view class="amount-label">销售金额</view>
+        </view>
+        <view class="amount-item">
+          <view class="amount-value">{{item.commissionType === 'RATE' ? (item.valueText + '%') : ('¥' + item.valueText)}}</view>
+          <view class="amount-label">分账比例/固定</view>
+        </view>
+        <view class="amount-item">
+          <view class="amount-value highlight">¥{{item.commissionText}}</view>
+          <view class="amount-label">分账金额</view>
+        </view>
+      </view>
+      <view class="muted created">{{item.createdText}}</view>
+    </view>
+  </view>
+</view>

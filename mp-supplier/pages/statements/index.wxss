@@ -1,0 +1,109 @@
+.statement-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 26rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.statement-no {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.period {
+  margin-top: 6rpx;
+}
+
+.amount-grid {
+  display: flex;
+  margin-top: 18rpx;
+  background: #f8fbf9;
+  border-radius: 18rpx;
+  padding: 18rpx 0;
+}
+
+.amount-item {
+  flex: 1;
+  text-align: center;
+}
+
+.amount-value {
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.amount-value.highlight {
+  color: #e8542f;
+}
+
+.amount-label {
+  margin-top: 2rpx;
+  font-size: 21rpx;
+  color: #9aa6a0;
+}
+
+.statement-foot {
+  margin-top: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detail-link {
+  font-size: 24rpx;
+  color: #12a15a;
+}
+
+.list-end {
+  text-align: center;
+  padding: 24rpx 0;
+}
+
+.detail-no {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.detail-time {
+  margin-top: 6rpx;
+}
+
+.detail-section {
+  margin-top: 24rpx;
+  border-top: 1rpx solid #f3f6f4;
+  padding-top: 18rpx;
+}
+
+.detail-section-title {
+  font-size: 27rpx;
+  font-weight: 600;
+  margin-bottom: 10rpx;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  font-size: 26rpx;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+}
+
+.detail-item-name {
+  font-size: 26rpx;
+}
+
+.detail-item-amount {
+  font-size: 26rpx;
+  margin-left: 20rpx;
+}
+
+.small-empty {
+  padding: 20rpx 0;
+}

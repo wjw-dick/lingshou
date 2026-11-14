@@ -1,0 +1,73 @@
+.store-hero {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #ffffff, #f0faf4);
+}
+
+.hero-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 32rpx;
+  background: linear-gradient(135deg, #12a15a, #6bd6a0);
+  color: #ffffff;
+  font-size: 48rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.hero-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-name {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.hero-tags {
+  margin-top: 10rpx;
+  display: flex;
+  gap: 10rpx;
+}
+
+.hero-address {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #6b7873;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f3f6f4;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-value {
+  font-size: 26rpx;
+  color: #26332d;
+  text-align: right;
+  margin-left: 24rpx;
+}
+
+.link {
+  color: #2f6bff;
+}
+
+.rule-empty {
+  padding: 40rpx 0;
+}
+
+.choose-btn {
+  margin-top: 12rpx;
+}

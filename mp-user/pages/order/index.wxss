@@ -1,0 +1,90 @@
+.login-tip {
+  text-align: center;
+}
+
+.login-title {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.login-btn {
+  margin-top: 20rpx;
+}
+
+.order-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 26rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.order-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-no {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #26332d;
+}
+
+.order-time {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #9aa6a0;
+}
+
+.order-body {
+  margin-top: 18rpx;
+  padding: 18rpx 0;
+  border-top: 1rpx solid #f3f6f4;
+  border-bottom: 1rpx solid #f3f6f4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-summary {
+  flex: 1;
+  min-width: 0;
+  font-size: 27rpx;
+  margin-right: 20rpx;
+}
+
+.order-count {
+  font-size: 23rpx;
+  color: #8b9791;
+  flex-shrink: 0;
+}
+
+.order-foot {
+  margin-top: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+}
+
+.order-actions {
+  margin-top: 16rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detail-link {
+  font-size: 24rpx;
+  color: #12a15a;
+}
+
+.list-end {
+  text-align: center;
+  padding: 24rpx 0;
+}

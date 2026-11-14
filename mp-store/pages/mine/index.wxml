@@ -1,0 +1,45 @@
+<view class="page">
+  <view class="profile-card">
+    <view class="avatar">{{initial}}</view>
+    <view class="profile-info">
+      <view class="profile-name">{{user ? (user.realName || user.username) : '未登录'}}</view>
+      <view class="profile-meta">{{user ? (user.roleCode || '门店员工') : '请登录员工账号'}}</view>
+    </view>
+    <view wx:if="{{!user}}" class="login-link" bindtap="goLogin">去登录</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading">正在加载门店信息...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadStore">{{error}}，点击重试</view>
+
+  <view class="card">
+    <view class="section-title">当前门店</view>
+    <view class="store-row">
+      <view class="store-avatar">店</view>
+      <view class="flex-1">
+        <view class="store-name">{{storeName}}</view>
+        <view class="muted">门店编号 #{{storeId}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card menu-card">
+    <view class="cell" bindtap="goReceive">
+      <text>收货管理</text>
+      <text class="cell-arrow">›</text>
+    </view>
+    <view class="cell" bindtap="goReplenishment">
+      <text>补货建议</text>
+      <text class="cell-arrow">›</text>
+    </view>
+    <view class="cell" bindtap="goShift">
+      <text>交接班</text>
+      <text class="cell-arrow">›</text>
+    </view>
+  </view>
+
+  <view wx:if="{{user}}" class="card menu-card">
+    <view class="cell logout" bindtap="logout">退出登录</view>
+  </view>
+
+  <view class="version">悦享便利门店端 v1.0.0</view>
+</view>

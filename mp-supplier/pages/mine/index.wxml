@@ -1,0 +1,62 @@
+<view class="page">
+  <view class="profile-card">
+    <view class="avatar">{{initial}}</view>
+    <view class="profile-info">
+      <view class="profile-name">{{supplier ? supplier.name : (user ? (user.realName || user.username) : '未登录')}}</view>
+      <view class="profile-meta">{{supplier ? supplier.code : '请登录供应商账号'}}</view>
+    </view>
+    <view wx:if="{{!user}}" class="login-link" bindtap="goLogin">去登录</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading">正在加载供应商信息...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadProfile">{{error}}，点击重试</view>
+
+  <view wx:if="{{supplier}}" class="card">
+    <view class="section-title">供应商信息</view>
+    <view class="info-row">
+      <text class="label">联系人</text>
+      <text>{{supplier.contact || '-'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">联系电话</text>
+      <text>{{supplier.phone || '-'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">供货品类</text>
+      <text>{{supplier.category || '-'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">结算周期</text>
+      <text>{{supplier.settleCycleDays || 0}} 天</text>
+    </view>
+    <view class="info-row">
+      <text class="label">地址</text>
+      <text class="info-value">{{supplier.address || '-'}}</text>
+    </view>
+  </view>
+
+  <view class="card menu-card">
+    <view class="cell" bindtap="goOrders">
+      <text>供货单</text>
+      <text class="cell-arrow">›</text>
+    </view>
+    <view class="cell" bindtap="goStatements">
+      <text>对账单</text>
+      <text class="cell-arrow">›</text>
+    </view>
+    <view class="cell" bindtap="goProducts">
+      <text>供货商品与价格</text>
+      <text class="cell-arrow">›</text>
+    </view>
+    <view class="cell" bindtap="goQualifications">
+      <text>资质管理</text>
+      <text class="cell-arrow">›</text>
+    </view>
+  </view>
+
+  <view wx:if="{{user}}" class="card menu-card">
+    <view class="cell logout" bindtap="logout">退出登录</view>
+  </view>
+
+  <view class="version">悦享便利供应商端 v1.0.0</view>
+</view>

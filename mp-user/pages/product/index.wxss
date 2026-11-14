@@ -1,0 +1,124 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 999rpx;
+  padding: 10rpx 12rpx 10rpx 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.search-input {
+  flex: 1;
+  font-size: 27rpx;
+  height: 60rpx;
+}
+
+.search-btn {
+  background: #12a15a;
+  color: #ffffff;
+  border-radius: 999rpx;
+  padding: 12rpx 30rpx;
+  font-size: 24rpx;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.cart-link {
+  font-size: 24rpx;
+  color: #12a15a;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.product-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.product-thumb {
+  height: 250rpx;
+  background: #f2f7f4;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+}
+
+.product-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64rpx;
+  font-weight: 700;
+  color: #b5d8c3;
+  background: linear-gradient(135deg, #eef8f2, #dff3e8);
+}
+
+.product-body {
+  padding: 20rpx;
+}
+
+.product-name {
+  font-size: 27rpx;
+  font-weight: 600;
+  min-height: 78rpx;
+  line-height: 39rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-spec {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #9aa6a0;
+}
+
+.product-tags {
+  margin-top: 8rpx;
+  font-size: 20rpx;
+  color: #12a15a;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.product-bottom {
+  margin-top: 12rpx;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.origin {
+  font-size: 20rpx;
+  color: #b3bcb8;
+  text-decoration: line-through;
+}
+
+.add-btn {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  background: #12a15a;
+  color: #ffffff;
+  font-size: 34rpx;
+  line-height: 48rpx;
+  text-align: center;
+}

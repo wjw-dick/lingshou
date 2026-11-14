@@ -1,0 +1,50 @@
+<view class="page">
+  <view wx:if="{{supplier}}" class="card supplier-card">
+    <view class="supplier-name">{{supplier.name}}</view>
+    <view class="muted">{{supplier.code}} · {{supplier.contact || '联系人'}} {{supplier.phone || ''}}</view>
+    <view class="muted address">{{supplier.address || '暂无地址'}}</view>
+  </view>
+
+  <button class="btn-primary add-btn" bindtap="openForm">上传资质</button>
+
+  <view wx:if="{{loading}}" class="loading">正在加载资质...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadProfile">{{error}}，点击重试</view>
+  <view wx:elif="{{!qualifications.length}}" class="empty">暂无资质文件</view>
+
+  <view wx:else>
+    <view class="qualification-card" wx:for="{{qualifications}}" wx:key="id">
+      <view class="between">
+        <view class="qualification-type">{{item.typeText}}</view>
+        <view class="status-pill {{item.status === 'APPROVED' ? 'green' : 'orange'}}">{{item.statusText}}</view>
+      </view>
+      <view class="muted expire">有效期至 {{item.expireText}}</view>
+      <view class="file-url ellipsis">{{item.fileUrl}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{showForm}}" class="modal-mask" bindtap="closeForm">
+    <view class="modal-panel" catchtap="stopTap">
+      <view class="modal-title">上传资质</view>
+      <view class="form-line">
+        <text class="item-label">资质类型</text>
+        <picker mode="selector" range="{{typeNames}}" value="{{typeIndex}}" bindchange="onTypeChange">
+          <view class="picker-value">{{typeName}} ›</view>
+        </picker>
+      </view>
+      <view class="form-line">
+        <text class="item-label">文件地址</text>
+        <input class="input item-input" placeholder="请输入文件 URL" value="{{form.fileUrl}}" data-field="fileUrl" bindinput="onFormInput" />
+      </view>
+      <view class="form-line">
+        <text class="item-label">有效期至</text>
+        <picker mode="date" value="{{form.expireAt}}" bindchange="onDateChange">
+          <view class="picker-value">{{form.expireAt || '请选择'}} ›</view>
+        </picker>
+      </view>
+      <view class="modal-actions">
+        <button class="btn-ghost" bindtap="closeForm">取消</button>
+        <button class="btn-primary" bindtap="save" disabled="{{submitting}}">提交</button>
+      </view>
+    </view>
+  </view>
+</view>

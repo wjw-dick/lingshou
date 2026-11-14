@@ -1,0 +1,80 @@
+<view class="page">
+  <scroll-view class="tabs" scroll-x="{{true}}">
+    <view wx:for="{{tabs}}" wx:key="value" class="tab {{status === item.value ? 'active' : ''}}" data-value="{{item.value}}" bindtap="switchTab">{{item.label}}</view>
+  </scroll-view>
+
+  <view wx:if="{{loading && !orders.length}}" class="loading">正在加载供货单...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadData">{{error}}，点击重试</view>
+  <view wx:elif="{{!orders.length}}" class="empty">暂无供货单</view>
+
+  <block wx:else>
+    <view class="order-card" wx:for="{{orders}}" wx:key="key" data-id="{{item.order.id}}" bindtap="openDetail">
+      <view class="between">
+        <view class="order-no">{{item.order.orderNo}}</view>
+        <view class="status-pill {{item.statusClass}}">{{item.statusText}}</view>
+      </view>
+      <view class="muted order-time">{{item.createdText}} · 门店 #{{item.order.storeId}}</view>
+      <view class="order-mid">
+        <view class="order-summary ellipsis">{{item.summary}}</view>
+        <view class="muted">{{item.itemCount}} 种</view>
+      </view>
+      <view class="order-foot">
+        <view class="muted">期望到货 {{item.order.expectedAt || '-'}}</view>
+        <view class="price">¥{{item.totalText}}</view>
+      </view>
+      <view class="order-actions">
+        <text class="detail-link">查看详情 ›</text>
+      </view>
+    </view>
+    <view wx:if="{{loading}}" class="loading">加载更多中...</view>
+    <view wx:elif="{{orders.length >= total}}" class="muted list-end">没有更多供货单了</view>
+  </block>
+
+  <view wx:if="{{showDetail && detail}}" class="modal-mask" bindtap="closeDetail">
+    <view class="modal-panel" catchtap="stopTap">
+      <view class="modal-title">供货单详情</view>
+      <view class="between">
+        <view class="detail-no">{{detail.order.orderNo}}</view>
+        <view class="status-pill {{detail.statusClass}}">{{detail.statusText}}</view>
+      </view>
+      <view class="muted detail-time">{{detail.createdText}} · 门店 #{{detail.order.storeId}}</view>
+
+      <view class="detail-section">
+        <view class="detail-section-title">供货商品</view>
+        <view class="detail-item" wx:for="{{detail.items}}" wx:key="id">
+          <view class="flex-1">
+            <view class="detail-item-name">{{item.name}}</view>
+            <view class="muted">¥{{item.priceText}} × {{item.qty}}（已发 {{item.shippedQty || 0}} / 已收 {{item.receivedQty || 0}}）</view>
+          </view>
+          <view class="detail-item-amount">¥{{item.amountText}}</view>
+        </view>
+      </view>
+
+      <view class="detail-section">
+        <view class="detail-row">
+          <text class="label">供货金额</text>
+          <text class="price">¥{{detail.totalText}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="label">期望到货</text>
+          <text>{{detail.order.expectedAt || '-'}}</text>
+        </view>
+        <view wx:if="{{detail.order.logisticsNo}}" class="detail-row">
+          <text class="label">物流单号</text>
+          <text>{{detail.order.logisticsNo}}</text>
+        </view>
+        <view wx:if="{{detail.order.remark}}" class="detail-row">
+          <text class="label">备注</text>
+          <text>{{detail.order.remark}}</text>
+        </view>
+      </view>
+
+      <view class="modal-actions">
+        <button wx:if="{{detail.order.status === 'PENDING'}}" class="btn-ghost" bindtap="reject" disabled="{{acting}}">拒单</button>
+        <button wx:if="{{detail.order.status === 'PENDING'}}" class="btn-primary" bindtap="accept" disabled="{{acting}}">接单</button>
+        <button wx:if="{{detail.order.status === 'ACCEPTED' || detail.order.status === 'PENDING'}}" class="btn-primary" bindtap="ship" disabled="{{acting}}">发货</button>
+        <button class="btn-ghost" bindtap="closeDetail">关闭</button>
+      </view>
+    </view>
+  </view>
+</view>

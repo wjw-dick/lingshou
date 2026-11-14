@@ -1,0 +1,191 @@
+<view class="page">
+  <view class="tabs">
+    <view class="tab {{tab === 'stock' ? 'active' : ''}}" data-tab="stock" bindtap="switchTab">库存</view>
+    <view class="tab {{tab === 'alert' ? 'active' : ''}}" data-tab="alert" bindtap="switchTab">预警 {{alertCount}}</view>
+    <view class="tab {{tab === 'loss' ? 'active' : ''}}" data-tab="loss" bindtap="switchTab">报损</view>
+    <view class="tab {{tab === 'check' ? 'active' : ''}}" data-tab="check" bindtap="switchTab">盘点</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading">正在加载库存数据...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadAll">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <block wx:if="{{tab === 'stock'}}">
+      <view wx:if="{{!stocks.length}}" class="empty">暂无库存数据</view>
+      <view wx:for="{{stocks}}" wx:key="skuId" class="stock-card">
+        <view class="between">
+          <view class="stock-name">{{item.skuName}}</view>
+          <view class="status-pill {{item.qty <= item.safetyStock ? 'orange' : 'green'}}">{{item.qty <= item.safetyStock ? '库存偏低' : '库存正常'}}</view>
+        </view>
+        <view class="muted stock-meta">{{item.skuCode}} · {{item.spec}} · {{item.storageText}}</view>
+        <view class="stock-grid">
+          <view class="stock-metric">
+            <view class="metric-value">{{item.qty}}</view>
+            <view class="metric-label">可用库存</view>
+          </view>
+          <view class="stock-metric">
+            <view class="metric-value">{{item.lockedQty}}</view>
+            <view class="metric-label">锁定</view>
+          </view>
+          <view class="stock-metric">
+            <view class="metric-value">{{item.safetyStock}}</view>
+            <view class="metric-label">安全库存</view>
+          </view>
+          <view class="stock-metric">
+            <view class="metric-value">¥{{item.priceText}}</view>
+            <view class="metric-label">零售价</view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:elif="{{tab === 'alert'}}">
+      <view class="alert-summary">
+        <view class="alert-item">
+          <view class="alert-value orange">{{alerts.lowStock.length}}</view>
+          <view class="alert-label">低库存</view>
+        </view>
+        <view class="alert-item">
+          <view class="alert-value red">{{alerts.nearExpiry.length}}</view>
+          <view class="alert-label">临期</view>
+        </view>
+        <view class="alert-item">
+          <view class="alert-value blue">{{alerts.slowMoving.length}}</view>
+          <view class="alert-label">滞销</view>
+        </view>
+        <view class="alert-item">
+          <view class="alert-value gray">{{alerts.overstock.length}}</view>
+          <view class="alert-label">超储</view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">低库存预警</view>
+        <view wx:if="{{!alerts.lowStock.length}}" class="empty small-empty">暂无低库存商品</view>
+        <view class="alert-row" wx:for="{{alerts.lowStock}}" wx:key="skuId">
+          <view class="flex-1">
+            <view class="alert-name">{{item.skuName}}</view>
+            <view class="muted">{{item.barcode}}</view>
+          </view>
+          <view class="alert-qty">库存 {{item.qty}} / 安全 {{item.safetyStock}}</view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">临期预警</view>
+        <view wx:if="{{!alerts.nearExpiry.length}}" class="empty small-empty">暂无临期商品</view>
+        <view class="alert-row" wx:for="{{alerts.nearExpiry}}" wx:key="skuId">
+          <view class="flex-1">
+            <view class="alert-name">{{item.skuName}}</view>
+            <view class="muted">批次 {{item.batchNo}} · 到期 {{item.expiryDate}}</view>
+          </view>
+          <view class="alert-qty orange">{{item.daysLeft}} 天</view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">滞销商品</view>
+        <view wx:if="{{!alerts.slowMoving.length}}" class="empty small-empty">暂无滞销商品</view>
+        <view class="alert-row" wx:for="{{alerts.slowMoving}}" wx:key="skuId">
+          <view class="flex-1">
+            <view class="alert-name">{{item.skuName}}</view>
+            <view class="muted">{{item.barcode}}</view>
+          </view>
+          <view class="alert-qty">库存 {{item.qty}}</view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">超储商品</view>
+        <view wx:if="{{!alerts.overstock.length}}" class="empty small-empty">暂无超储商品</view>
+        <view class="alert-row" wx:for="{{alerts.overstock}}" wx:key="skuId">
+          <view class="flex-1">
+            <view class="alert-name">{{item.skuName}}</view>
+            <view class="muted">{{item.barcode}}</view>
+          </view>
+          <view class="alert-qty">库存 {{item.qty}}</view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:elif="{{tab === 'loss'}}">
+      <button class="btn-primary create-btn" bindtap="openLoss">新建报损单</button>
+      <view wx:if="{{!lossOrders.length}}" class="empty">暂无报损记录</view>
+      <view wx:for="{{lossOrders}}" wx:key="id" class="record-card">
+        <view class="between">
+          <view class="record-no">{{item.lossNo}}</view>
+          <view class="status-pill {{item.status === 'APPROVED' ? 'green' : (item.status === 'REJECTED' ? 'gray' : 'orange')}}">{{item.statusText}}</view>
+        </view>
+        <view class="muted record-meta">{{item.createdText}} · {{item.reasonType}} · {{item.totalQty}} 件</view>
+        <view class="record-amount">报损金额 ¥{{item.amountText}}</view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <button class="btn-primary create-btn" bindtap="openCheck">新建盘点单</button>
+      <view wx:if="{{!checks.length}}" class="empty">暂无盘点记录</view>
+      <view wx:for="{{checks}}" wx:key="id" class="record-card">
+        <view class="between">
+          <view class="record-no">{{item.checkNo}}</view>
+          <view class="status-pill {{item.status === 'APPROVED' ? 'green' : (item.status === 'REJECTED' ? 'gray' : 'orange')}}">{{item.statusText}}</view>
+        </view>
+        <view class="muted record-meta">{{item.createdText}} · {{item.checkType}}</view>
+        <view class="record-amount">差异数量 {{item.totalDiffQty}}</view>
+      </view>
+    </block>
+  </block>
+
+  <view wx:if="{{showLoss}}" class="modal-mask" bindtap="closeModal">
+    <view class="modal-panel" catchtap="stopTap">
+      <view class="modal-title">新建报损单</view>
+      <view class="form-line">
+        <text class="item-label">报损商品</text>
+        <picker mode="selector" range="{{stockNames}}" bindchange="onLossStockChange">
+          <view class="picker-value">{{lossForm.skuName || '请选择商品'}} ›</view>
+        </picker>
+      </view>
+      <view class="form-line">
+        <text class="item-label">报损数量</text>
+        <input class="input item-input" type="number" placeholder="请输入数量" value="{{lossForm.qty}}" data-field="qty" bindinput="onLossInput" />
+      </view>
+      <view class="form-line">
+        <text class="item-label">报损原因</text>
+        <picker mode="selector" range="{{reasonNames}}" value="{{reasonIndex}}" bindchange="onReasonChange">
+          <view class="picker-value">{{reasonName}} ›</view>
+        </picker>
+      </view>
+      <view class="form-line">
+        <text class="item-label">备注</text>
+        <input class="input item-input" placeholder="选填" value="{{lossForm.remark}}" data-field="remark" bindinput="onLossInput" />
+      </view>
+      <view class="modal-actions">
+        <button class="btn-ghost" bindtap="closeModal">取消</button>
+        <button class="btn-primary" bindtap="submitLoss" disabled="{{submitting}}">提交报损</button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showCheck}}" class="modal-mask" bindtap="closeModal">
+    <view class="modal-panel" catchtap="stopTap">
+      <view class="modal-title">新建盘点单</view>
+      <view class="form-line">
+        <text class="item-label">盘点商品</text>
+        <picker mode="selector" range="{{stockNames}}" bindchange="onCheckStockChange">
+          <view class="picker-value">{{checkForm.skuName || '请选择商品'}} ›</view>
+        </picker>
+      </view>
+      <view class="form-line">
+        <text class="item-label">实盘数量</text>
+        <input class="input item-input" type="number" placeholder="请输入实盘数量" value="{{checkForm.actualQty}}" data-field="actualQty" bindinput="onCheckInput" />
+      </view>
+      <view class="form-line">
+        <text class="item-label">差异原因</text>
+        <input class="input item-input" placeholder="选填" value="{{checkForm.reason}}" data-field="reason" bindinput="onCheckInput" />
+      </view>
+      <view class="modal-actions">
+        <button class="btn-ghost" bindtap="closeModal">取消</button>
+        <button class="btn-primary" bindtap="submitCheck" disabled="{{submitting}}">提交盘点</button>
+      </view>
+    </view>
+  </view>
+</view>

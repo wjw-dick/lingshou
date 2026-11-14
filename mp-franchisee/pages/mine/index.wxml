@@ -1,0 +1,75 @@
+<view class="page">
+  <view class="profile-card">
+    <view class="avatar">{{initial}}</view>
+    <view class="profile-info">
+      <view class="profile-name">{{franchisee ? franchisee.name : (user ? (user.realName || user.username) : '未登录')}}</view>
+      <view class="profile-meta">{{franchisee ? (franchisee.code + ' · ' + (franchisee.level || '加盟商')) : '请登录加盟商账号'}}</view>
+    </view>
+    <view wx:if="{{!user}}" class="login-link" bindtap="goLogin">去登录</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading">正在加载加盟商信息...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadProfile">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <view wx:if="{{franchisee}}" class="card">
+      <view class="section-title">合作信息</view>
+      <view class="info-row">
+        <text class="label">联系人</text>
+        <text>{{franchisee.contact || '-'}} {{franchisee.phone || ''}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">授信额度</text>
+        <text>¥{{creditText}}（已用 ¥{{usedText}}）</text>
+      </view>
+      <view class="info-row">
+        <text class="label">保证金</text>
+        <text>¥{{depositText}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">合同编号</text>
+        <text>{{franchisee.contractNo || '-'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">合同期限</text>
+        <text>{{franchisee.contractStart || '-'}} 至 {{franchisee.contractEnd || '-'}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{qualifications.length}}" class="card">
+      <view class="section-title">资质文件</view>
+      <view class="qualification-item" wx:for="{{qualifications}}" wx:key="id">
+        <view class="flex-1">
+          <view class="qualification-type">{{item.type}}</view>
+          <view class="muted">有效期至 {{item.expireText}}</view>
+        </view>
+        <view class="status-pill {{item.status === 'APPROVED' ? 'green' : 'orange'}}">{{item.statusText}}</view>
+      </view>
+    </view>
+
+    <view class="card menu-card">
+      <view class="cell" bindtap="goStores">
+        <text>门店概览</text>
+        <text class="cell-arrow">›</text>
+      </view>
+      <view class="cell" bindtap="goOrders">
+        <text>我的报单</text>
+        <text class="cell-arrow">›</text>
+      </view>
+      <view class="cell" bindtap="goCommissions">
+        <text>分账明细</text>
+        <text class="cell-arrow">›</text>
+      </view>
+      <view class="cell" bindtap="goStatements">
+        <text>对账单</text>
+        <text class="cell-arrow">›</text>
+      </view>
+    </view>
+
+    <view wx:if="{{user}}" class="card menu-card">
+      <view class="cell logout" bindtap="logout">退出登录</view>
+    </view>
+  </block>
+
+  <view class="version">悦享便利加盟商端 v1.0.0</view>
+</view>

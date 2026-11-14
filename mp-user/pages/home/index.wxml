@@ -1,0 +1,116 @@
+<view class="home">
+  <view class="hero">
+    <view class="between">
+      <view>
+        <view class="hero-title">悦享便利</view>
+        <view class="hero-sub">新鲜 · 便捷 · 就在身边</view>
+      </view>
+      <view class="member-mini" bindtap="goMember">
+        <view class="member-name">{{member.nickname}}</view>
+        <view class="member-points">积分 {{member.points}} · 余额 ¥{{member.wallet}}</view>
+      </view>
+    </view>
+    <view class="store-chip" bindtap="goStores">
+      <view class="store-dot"></view>
+      <view wx:if="{{selectedStore}}" class="store-chip-text">
+        <text class="ellipsis">{{selectedStore.name}}</text>
+        <text class="store-chip-sub">{{selectedStore.businessHours || '营业中'}}</text>
+      </view>
+      <view wx:else class="store-chip-text">
+        <text>请选择门店</text>
+        <text class="store-chip-sub">点击查看附近门店</text>
+      </view>
+      <view class="store-switch">切换 ›</view>
+    </view>
+  </view>
+
+  <view class="page">
+    <view wx:if="{{!hasToken}}" class="card login-card">
+      <view class="login-title">登录后享会员价</view>
+      <view class="muted">积分、优惠券、储值余额一站享有</view>
+      <button class="btn-primary login-btn" bindtap="goLogin">一键登录</button>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading">正在加载首页数据...</view>
+    <view wx:elif="{{error}}" class="error-box" bindtap="loadHome">{{error}}，点击重试</view>
+
+    <block wx:else>
+      <swiper class="banner-swiper" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="4000">
+        <swiper-item wx:for="{{banners}}" wx:key="id">
+          <view class="banner-card">
+            <view class="banner-title">{{item.title}}</view>
+            <view class="banner-sub">会员专享 · 好物即时达</view>
+          </view>
+        </swiper-item>
+      </swiper>
+
+      <view class="card quick-grid">
+        <view class="quick-item" bindtap="goStores">
+          <view class="quick-icon green">店</view>
+          <view class="quick-text">找店</view>
+        </view>
+        <view class="quick-item" bindtap="goCoupon">
+          <view class="quick-icon blue">券</view>
+          <view class="quick-text">领券</view>
+        </view>
+        <view class="quick-item" bindtap="goCart">
+          <view class="quick-icon orange">车</view>
+          <view class="quick-text">购物车 {{cartCount}}</view>
+        </view>
+        <view class="quick-item" bindtap="goProductList">
+          <view class="quick-icon pink">品</view>
+          <view class="quick-text">全部商品</view>
+        </view>
+      </view>
+
+      <view wx:if="{{stores.length}}" class="section-title">
+        <text>附近门店</text>
+        <text class="section-more" bindtap="goStores">全部 ›</text>
+      </view>
+      <scroll-view wx:if="{{stores.length}}" class="store-scroll" scroll-x="{{true}}">
+        <view class="store-card" wx:for="{{stores}}" wx:key="id" data-id="{{item.id}}" bindtap="goStoreDetail">
+          <view class="store-avatar">{{item.initial}}</view>
+          <view class="store-info">
+            <view class="store-name ellipsis">{{item.name}}</view>
+            <view class="store-address ellipsis">{{item.address}}</view>
+            <view class="store-hours">{{item.businessHours || '09:00-22:00'}}</view>
+          </view>
+          <button class="btn-ghost btn-sm store-pick" catchtap="chooseStore" data-index="{{index}}">选此店</button>
+        </view>
+      </scroll-view>
+
+      <view class="section-title">
+        <text>商品分类</text>
+        <text class="section-more" bindtap="goProductList">更多 ›</text>
+      </view>
+      <scroll-view class="category-scroll" scroll-x="{{true}}">
+        <view class="category-chip" wx:for="{{categories}}" wx:key="id" data-id="{{item.id}}" bindtap="goCategory">
+          <view class="category-icon">{{item.initial}}</view>
+          <view class="category-name">{{item.name}}</view>
+        </view>
+      </scroll-view>
+
+      <view class="section-title">
+        <text>为你推荐</text>
+        <text class="section-more" bindtap="goProductList">全部 ›</text>
+      </view>
+      <view wx:if="{{!products.length}}" class="empty">暂无在售商品</view>
+      <view class="product-grid">
+        <view class="product-card" wx:for="{{products}}" wx:key="skuId" data-skuid="{{item.skuId}}" bindtap="goProduct">
+          <view class="product-thumb">
+            <image wx:if="{{item.image}}" class="product-image" src="{{item.image}}" mode="aspectFill"></image>
+            <view wx:else class="product-placeholder">{{item.initial}}</view>
+          </view>
+          <view class="product-body">
+            <view class="product-name">{{item.name}}</view>
+            <view class="product-spec">{{item.spec}} {{item.unit}}</view>
+            <view class="product-bottom">
+              <view class="price"><text class="price-symbol">¥</text>{{item.price}}</view>
+              <view class="add-btn" catchtap="addCart" data-skuid="{{item.skuId}}">+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/home/index",
+    "pages/stores/index",
+    "pages/order/create",
+    "pages/orders/index",
+    "pages/commissions/index",
+    "pages/statements/index",
+    "pages/mine/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "悦享便利加盟商",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f4f7f5",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8a9490",
+    "selectedColor": "#12a15a",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/create",
+        "text": "报单"
+      },
+      {
+        "pagePath": "pages/commissions/index",
+        "text": "分账"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,115 @@
+<view class="page detail-page">
+  <view wx:if="{{loading}}" class="loading">正在加载订单详情...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadDetail">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <view wx:if="{{fromPay && canPay}}" class="pay-banner">
+      <view class="pay-banner-title">订单提交成功</view>
+      <view class="pay-banner-sub">请完成支付，门店将尽快为你备货</view>
+    </view>
+
+    <view class="status-card">
+      <view class="between">
+        <view>
+          <view class="status-text">{{order.statusText}}</view>
+          <view class="status-sub">{{order.deliveryTypeText}} · {{order.payStatusText}}</view>
+        </view>
+        <view class="status-pill {{order.statusClass}}">{{order.statusText}}</view>
+      </view>
+      <view class="status-amount">
+        <text class="muted">应付金额</text>
+        <text class="price status-price"><text class="price-symbol">¥</text>{{order.payableText}}</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="section-title">商品明细</view>
+      <view class="order-item" wx:for="{{items}}" wx:key="id">
+        <view class="item-info">
+          <view class="item-name">{{item.skuName}}</view>
+          <view class="item-meta">¥{{item.priceText}} × {{item.qty}}</view>
+        </view>
+        <view class="item-amount">¥{{item.amountText}}</view>
+      </view>
+      <view class="divider"></view>
+      <view class="amount-row">
+        <text class="label">商品金额</text>
+        <text>¥{{order.totalText}}</text>
+      </view>
+      <view class="amount-row">
+        <text class="label">优惠券优惠</text>
+        <text class="discount">-¥{{order.discountText}}</text>
+      </view>
+      <view class="amount-row">
+        <text class="label">积分抵扣</text>
+        <text class="discount">-¥{{order.pointsDiscountText}}</text>
+      </view>
+      <view class="amount-row">
+        <text class="label">配送费</text>
+        <text>¥{{order.freightText}}</text>
+      </view>
+      <view class="amount-row total">
+        <text>应付金额</text>
+        <text class="price"><text class="price-symbol">¥</text>{{order.payableText}}</text>
+      </view>
+      <view wx:if="{{order.paidAmount}}" class="amount-row">
+        <text class="label">实付金额</text>
+        <text class="price">¥{{order.paidAmountText}}</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="section-title">{{order.deliveryTypeText}}信息</view>
+      <view wx:if="{{order.deliveryType === 'DELIVERY'}}">
+        <view class="info-row">
+          <text class="label">联系人</text>
+          <text class="info-value">{{order.deliveryName || '-'}} {{order.deliveryPhone}}</text>
+        </view>
+        <view class="info-row">
+          <text class="label">配送地址</text>
+          <text class="info-value">{{order.deliveryAddress || '-'}}</text>
+        </view>
+      </view>
+      <view wx:else class="info-row">
+        <text class="label">自提门店</text>
+        <text class="info-value">{{storeName || ('门店 #' + order.storeId)}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">订单编号</text>
+        <text class="info-value">{{order.orderNo}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">下单时间</text>
+        <text class="info-value">{{order.createdText}}</text>
+      </view>
+      <view wx:if="{{order.paidTimeText}}" class="info-row">
+        <text class="label">支付时间</text>
+        <text class="info-value">{{order.paidTimeText}}</text>
+      </view>
+      <view wx:if="{{order.remark}}" class="info-row">
+        <text class="label">备注</text>
+        <text class="info-value">{{order.remark}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{evaluation}}" class="card">
+      <view class="section-title">我的评价</view>
+      <view class="eval-score">评分 {{evaluation.score}} 分</view>
+      <view class="eval-content">{{evaluation.content || '暂无评价内容'}}</view>
+    </view>
+
+    <view wx:if="{{canEvaluate}}" class="card">
+      <view class="section-title">评价本单</view>
+      <view class="score-row">
+        <view wx:for="{{scores}}" wx:key="*this" class="score-star {{item <= evalScore ? 'active' : ''}}" data-score="{{item}}" bindtap="selectScore">★</view>
+      </view>
+      <textarea class="input eval-input" placeholder="说说本次购物的感受吧" value="{{evalContent}}" bindinput="onEvalInput"></textarea>
+      <button class="btn-primary eval-btn" bindtap="submitEvaluation" disabled="{{submitting}}">提交评价</button>
+    </view>
+
+    <view wx:if="{{canPay || canCancel}}" class="action-bar">
+      <button wx:if="{{canCancel}}" class="btn-ghost action-btn" bindtap="cancelOrder">取消订单</button>
+      <button wx:if="{{canPay}}" class="btn-primary action-btn pay-btn" bindtap="payNow" disabled="{{submitting}}">立即支付</button>
+    </view>
+  </block>
+</view>

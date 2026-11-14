@@ -1,0 +1,74 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="loading">正在加载门店信息...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadDetail">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <view class="store-hero card">
+      <view class="hero-avatar">{{store.initial}}</view>
+      <view class="hero-info">
+        <view class="hero-name">{{store.name}}</view>
+        <view class="hero-tags">
+          <text class="tag">{{store.type || '直营店'}}</text>
+          <text class="tag">{{store.status === 'OPEN' ? '营业中' : '休息中'}}</text>
+        </view>
+        <view class="hero-address">{{store.region}} {{store.address}}</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="section-title">门店信息</view>
+      <view class="info-row">
+        <text class="label">联系电话</text>
+        <text class="info-value link" bindtap="callStore">{{store.phone || store.managerPhone || '暂无'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">营业时间</text>
+        <text class="info-value">{{store.businessHours || '09:00-22:00'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">店长</text>
+        <text class="info-value">{{store.managerName || '-'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">线上营业</text>
+        <text class="info-value">{{store.onlineEnabled ? '已开通' : '未开通'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">外送服务</text>
+        <text class="info-value">{{store.deliveryEnabled ? '支持外送' : '仅自提'}}</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="section-title">
+        <text>配送规则</text>
+        <text wx:if="{{rule}}" class="tag">已启用</text>
+      </view>
+      <view wx:if="{{!rule}}" class="empty rule-empty">该门店暂未配置配送规则，支持到店自提</view>
+      <block wx:else>
+        <view class="info-row">
+          <text class="label">起送金额</text>
+          <text class="info-value">¥{{ruleTexts.minOrder}}</text>
+        </view>
+        <view class="info-row">
+          <text class="label">配送费</text>
+          <text class="info-value">¥{{ruleTexts.deliveryFee}}</text>
+        </view>
+        <view class="info-row">
+          <text class="label">免配送费门槛</text>
+          <text class="info-value">满 ¥{{ruleTexts.freeThreshold}}</text>
+        </view>
+        <view class="info-row">
+          <text class="label">配送半径</text>
+          <text class="info-value">{{rule.radiusM || 3000}} 米</text>
+        </view>
+        <view class="info-row">
+          <text class="label">配送时段</text>
+          <text class="info-value">{{rule.timeSlots || '下单后 30 分钟送达'}}</text>
+        </view>
+      </block>
+    </view>
+
+    <button class="btn-primary choose-btn" bindtap="chooseStore">选此门店购物</button>
+  </block>
+</view>

@@ -1,0 +1,98 @@
+<view class="page">
+  <view class="hero-card">
+    <view class="hero-top">
+      <view>
+        <view class="hero-label">今日营业额</view>
+        <view class="hero-sales">¥{{todaySalesText}}</view>
+      </view>
+      <view class="hero-badge">{{todayOrderCount}} 单</view>
+    </view>
+    <view class="hero-store">
+      <view class="dot"></view>
+      <text>{{storeName}}</text>
+      <text class="hero-store-id">门店 #{{storeId}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{!hasToken}}" class="card login-tip">
+    <view class="login-title">请先登录员工账号</view>
+    <button class="btn-primary login-btn" bindtap="goLogin">去登录</button>
+  </view>
+
+  <view wx:elif="{{loading}}" class="loading">正在加载工作台...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadWorkbench">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <view class="section-title">待办事项</view>
+    <view class="todo-grid">
+      <view class="todo-card" bindtap="goReceive">
+        <view class="todo-value orange">{{pendingReceive}}</view>
+        <view class="todo-label">待收货</view>
+      </view>
+      <view class="todo-card" bindtap="goOrders">
+        <view class="todo-value blue">{{pendingPick}}</view>
+        <view class="todo-label">待拣货</view>
+      </view>
+      <view class="todo-card" bindtap="goInventory">
+        <view class="todo-value orange">{{pendingChecks}}</view>
+        <view class="todo-label">待盘点</view>
+      </view>
+      <view class="todo-card" bindtap="goInventory">
+        <view class="todo-value red">{{nearExpiry}}</view>
+        <view class="todo-label">临期商品</view>
+      </view>
+      <view class="todo-card" bindtap="goShift">
+        <view class="todo-value green">{{waitPickup + delivering}}</view>
+        <view class="todo-label">待交付订单</view>
+      </view>
+      <view class="todo-card" bindtap="goOrders">
+        <view class="todo-value green">{{pendingLosses}}</view>
+        <view class="todo-label">待审报损</view>
+      </view>
+    </view>
+
+    <view class="section-title">快捷操作</view>
+    <view class="card action-list">
+      <view class="action-item" bindtap="goReceive">
+        <view class="action-icon green">收</view>
+        <view class="action-body">
+          <view class="action-title">收货入库</view>
+          <view class="muted">确认到货数量、批次与冷链温度</view>
+        </view>
+        <view class="action-arrow">›</view>
+      </view>
+      <view class="action-item" bindtap="goReplenishment">
+        <view class="action-icon blue">补</view>
+        <view class="action-body">
+          <view class="action-title">补货建议</view>
+          <view class="muted">按销量与安全库存一键订货</view>
+        </view>
+        <view class="action-arrow">›</view>
+      </view>
+      <view class="action-item" bindtap="goInventory">
+        <view class="action-icon orange">盘</view>
+        <view class="action-body">
+          <view class="action-title">库存与预警</view>
+          <view class="muted">低库存、临期、滞销与报损盘点</view>
+        </view>
+        <view class="action-arrow">›</view>
+      </view>
+      <view class="action-item" bindtap="goShift">
+        <view class="action-icon pink">班</view>
+        <view class="action-body">
+          <view class="action-title">交接班</view>
+          <view class="muted">开班、交班与现金核对</view>
+        </view>
+        <view class="action-arrow">›</view>
+      </view>
+    </view>
+
+    <view wx:if="{{notices.length}}" class="card">
+      <view class="section-title">门店通知</view>
+      <view class="notice-item" wx:for="{{notices}}" wx:key="id">
+        <view class="notice-dot"></view>
+        <view class="notice-text">{{item.title}}</view>
+      </view>
+    </view>
+  </block>
+</view>

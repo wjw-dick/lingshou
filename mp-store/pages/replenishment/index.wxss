@@ -1,0 +1,160 @@
+.replenish-page {
+  padding-bottom: 180rpx;
+}
+
+.tip-card {
+  background: linear-gradient(135deg, #ffffff, #f0faf4);
+}
+
+.tip-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-bottom: 8rpx;
+}
+
+.date-line {
+  margin-top: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.picker-value {
+  font-size: 26rpx;
+  color: #12a15a;
+}
+
+.row-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 18rpx;
+  border: 3rpx solid transparent;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.row-card.checked {
+  border-color: #b9e6cd;
+  background: #fbfffc;
+}
+
+.row-head {
+  display: flex;
+  align-items: flex-start;
+}
+
+.check-dot {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 2rpx solid #b9d8c7;
+  color: #ffffff;
+  font-size: 24rpx;
+  line-height: 38rpx;
+  text-align: center;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  background: #ffffff;
+}
+
+.row-card.checked .check-dot {
+  background: #12a15a;
+  border-color: #12a15a;
+}
+
+.row-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.sku-name {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.suggest-badge {
+  background: #eaf7f0;
+  color: #12a15a;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  padding: 6rpx 16rpx;
+  flex-shrink: 0;
+}
+
+.meta-grid {
+  display: flex;
+  margin-top: 18rpx;
+  background: #f8fbf9;
+  border-radius: 18rpx;
+  padding: 16rpx 0;
+}
+
+.meta-item {
+  flex: 1;
+  text-align: center;
+}
+
+.meta-value {
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.meta-label {
+  margin-top: 2rpx;
+  font-size: 21rpx;
+  color: #9aa6a0;
+}
+
+.qty-line {
+  margin-top: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.qty-input {
+  width: 160rpx;
+  text-align: center;
+  padding: 10rpx 0;
+}
+
+.field-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.remark-input {
+  flex: 1;
+  margin-left: 20rpx;
+  text-align: right;
+}
+
+.submit-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 18rpx 24rpx calc(18rpx + env(safe-area-inset-bottom));
+  background: #ffffff;
+  box-shadow: 0 -8rpx 24rpx rgba(18, 161, 90, 0.08);
+}
+
+.submit-total {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 10rpx;
+}
+
+.total-price {
+  font-size: 38rpx;
+}
+
+.submit-btn {
+  height: 76rpx;
+  line-height: 76rpx;
+  padding: 0 48rpx;
+}

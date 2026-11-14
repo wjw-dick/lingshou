@@ -1,0 +1,45 @@
+<view class="page">
+  <button class="btn-primary add-btn" bindtap="openCreate">新增 / 维护供货价</button>
+
+  <view wx:if="{{loading}}" class="loading">正在加载供货商品...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadProducts">{{error}}，点击重试</view>
+  <view wx:elif="{{!rows.length}}" class="empty">暂无供货商品</view>
+
+  <block wx:else>
+    <view class="product-card" wx:for="{{rows}}" wx:key="skuId" data-index="{{index}}" bindtap="openEdit">
+      <view class="between">
+        <view class="product-name">{{item.skuName}}</view>
+        <view class="status-pill {{item.auditStatus === 'APPROVED' ? 'green' : (item.auditStatus === 'REJECTED' ? 'gray' : 'orange')}}">{{item.auditText}}</view>
+      </view>
+      <view class="muted product-meta">{{item.skuCode}} · 条码 {{item.barcode}}</view>
+      <view class="product-foot">
+        <view class="muted">SKU #{{item.skuId}}</view>
+        <view class="price">供货价 ¥{{item.priceText}}</view>
+      </view>
+      <view class="edit-tip">点击修改供货价 ›</view>
+    </view>
+  </block>
+
+  <view wx:if="{{showForm}}" class="modal-mask" bindtap="closeForm">
+    <view class="modal-panel" catchtap="stopTap">
+      <view class="modal-title">{{editing ? '维护供货价' : '新增供货商品'}}</view>
+      <view class="form-line">
+        <text class="item-label">商品 SKU ID</text>
+        <input class="input item-input" type="number" placeholder="如 1" value="{{form.skuId}}" disabled="{{editing}}" data-field="skuId" bindinput="onFormInput" />
+      </view>
+      <view wx:if="{{editing}}" class="form-line">
+        <text class="item-label">商品名称</text>
+        <text class="item-text">{{form.skuName}}</text>
+      </view>
+      <view class="form-line">
+        <text class="item-label">供货价（元）</text>
+        <input class="input item-input" type="digit" placeholder="0.00" value="{{form.supplyPrice}}" data-field="supplyPrice" bindinput="onFormInput" />
+      </view>
+      <view class="form-tip">提交后需平台审核，审核通过后生效。</view>
+      <view class="modal-actions">
+        <button class="btn-ghost" bindtap="closeForm">取消</button>
+        <button class="btn-primary" bindtap="save" disabled="{{submitting}}">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

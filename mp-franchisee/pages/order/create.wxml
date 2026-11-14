@@ -1,0 +1,74 @@
+<view class="page create-page">
+  <view wx:if="{{!hasToken}}" class="card login-tip">
+    <view class="login-title">登录后即可报单</view>
+    <view class="muted">加盟商在线向总部提交供货需求</view>
+    <button class="btn-primary login-btn" bindtap="goLogin">去登录</button>
+  </view>
+
+  <view wx:elif="{{loading}}" class="loading">正在加载报单信息...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadAll">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <view class="card store-card">
+      <view class="section-title">报单门店</view>
+      <picker wx:if="{{stores.length}}" mode="selector" range="{{storeNames}}" value="{{storeIndex}}" bindchange="onStoreChange">
+        <view class="picker-line">
+          <text class="picker-value">{{storeName}}</text>
+          <text class="picker-arrow">切换 ›</text>
+        </view>
+      </picker>
+      <view wx:else class="empty">暂无可报单门店</view>
+      <view class="form-line">
+        <text class="label">期望到货</text>
+        <picker mode="date" value="{{expectedAt}}" bindchange="onDateChange">
+          <view class="picker-value">{{expectedAt}} ›</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="search-bar">
+      <input class="search-input" placeholder="搜索商品名称" value="{{keyword}}" bindinput="onKeywordInput" confirm-type="search" bindconfirm="search" />
+      <view class="search-btn" bindtap="search">搜索</view>
+    </view>
+
+    <view class="section-title">
+      <text>选择商品</text>
+      <text class="muted">已选 {{selectedCount}} 件</text>
+    </view>
+
+    <view wx:if="{{!products.length}}" class="empty">暂无商品</view>
+    <view wx:for="{{products}}" wx:key="skuId" class="product-card">
+      <view class="product-thumb">
+        <image wx:if="{{item.image}}" class="product-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view wx:else class="product-placeholder">{{item.initial}}</view>
+      </view>
+      <view class="product-body">
+        <view class="product-name">{{item.name}}</view>
+        <view class="muted product-spec">{{item.spec}} {{item.unit}}</view>
+        <view class="product-bottom">
+          <view class="price">¥{{item.priceText}}<text class="muted unit-text">/件</text></view>
+          <view class="qty-box">
+            <view class="qty-btn {{item.qty === 0 ? 'disabled' : ''}}" data-index="{{index}}" bindtap="minus">-</view>
+            <view class="qty-value">{{item.qty}}</view>
+            <view class="qty-btn plus" data-index="{{index}}" bindtap="plus">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="form-line">
+        <text class="label">备注</text>
+        <input class="input remark-input" placeholder="选填，如指定配送时间" value="{{remark}}" bindinput="onRemarkInput" />
+      </view>
+    </view>
+
+    <view class="submit-bar">
+      <view class="submit-total">
+        <text class="muted">预估金额</text>
+        <text class="price total-price"><text class="price-symbol">¥</text>{{totalText}}</text>
+      </view>
+      <button class="btn-primary submit-btn" bindtap="submit" disabled="{{submitting}}">{{submitting ? '提交中...' : '提交报单'}}</button>
+    </view>
+  </block>
+</view>

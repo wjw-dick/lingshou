@@ -1,0 +1,220 @@
+page {
+  background: #f4f7f5;
+  color: #1f2a26;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.page {
+  padding: 24rpx 24rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #17231e;
+  margin-bottom: 20rpx;
+}
+
+.muted {
+  color: #8b9791;
+  font-size: 24rpx;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #12a15a, #0c7d46);
+  color: #ffffff;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border: none;
+  padding: 0 32rpx;
+}
+
+.btn-primary[disabled] {
+  background: #b9d8c7;
+  color: #ffffff;
+}
+
+.btn-ghost {
+  background: #ffffff;
+  color: #12a15a;
+  border: 2rpx solid #12a15a;
+  border-radius: 999rpx;
+  height: 72rpx;
+  line-height: 68rpx;
+  font-size: 26rpx;
+  text-align: center;
+  padding: 0 28rpx;
+}
+
+.btn-sm {
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 24rpx;
+  padding: 0 24rpx;
+  border-radius: 999rpx;
+}
+
+.price {
+  color: #e8542f;
+  font-weight: 700;
+}
+
+.price-symbol {
+  font-size: 22rpx;
+  margin-right: 2rpx;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4rpx 14rpx;
+  border-radius: 999rpx;
+  background: #eaf7f0;
+  color: #12a15a;
+  font-size: 20rpx;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  background: #eef4ff;
+  color: #2f6bff;
+}
+
+.status-pill.green {
+  background: #eaf7f0;
+  color: #12a15a;
+}
+
+.status-pill.gray {
+  background: #f1f3f2;
+  color: #8b9791;
+}
+
+.status-pill.orange {
+  background: #fff3e8;
+  color: #e9832f;
+}
+
+.empty {
+  padding: 100rpx 0;
+  text-align: center;
+  color: #9aa6a0;
+  font-size: 26rpx;
+}
+
+.loading {
+  padding: 80rpx 0;
+  text-align: center;
+  color: #9aa6a0;
+  font-size: 26rpx;
+}
+
+.error-box {
+  margin: 24rpx 0;
+  padding: 28rpx;
+  background: #fff6f4;
+  border-radius: 20rpx;
+  color: #c0432b;
+  font-size: 26rpx;
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  gap: 12rpx;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 8rpx 0 20rpx;
+}
+
+.tab {
+  padding: 12rpx 28rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  color: #61706a;
+  font-size: 25rpx;
+  flex-shrink: 0;
+}
+
+.tab.active {
+  background: #12a15a;
+  color: #ffffff;
+}
+
+.input {
+  background: #f5f8f6;
+  border-radius: 16rpx;
+  padding: 18rpx 22rpx;
+  font-size: 27rpx;
+  box-sizing: border-box;
+}
+
+.label {
+  color: #6b7873;
+  font-size: 25rpx;
+}
+
+.divider {
+  height: 1rpx;
+  background: #eef2f0;
+  margin: 20rpx 0;
+}
+
+.flex-1 {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0f9d58, #0b7a43);
+  color: #ffffff;
+  border-radius: 0 0 36rpx 36rpx;
+  padding: 40rpx 32rpx 56rpx;
+}
+
+.hero-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}

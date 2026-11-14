@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/home/index",
+    "pages/orders/index",
+    "pages/statements/index",
+    "pages/products/index",
+    "pages/qualifications/index",
+    "pages/mine/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "悦享便利供应商",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f4f7f5",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8a9490",
+    "selectedColor": "#12a15a",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/orders/index",
+        "text": "供货单"
+      },
+      {
+        "pagePath": "pages/statements/index",
+        "text": "对账"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

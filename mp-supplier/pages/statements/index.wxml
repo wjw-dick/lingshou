@@ -1,0 +1,97 @@
+<view class="page">
+  <scroll-view class="tabs" scroll-x="{{true}}">
+    <view wx:for="{{tabs}}" wx:key="value" class="tab {{status === item.value ? 'active' : ''}}" data-value="{{item.value}}" bindtap="switchTab">{{item.label}}</view>
+  </scroll-view>
+
+  <view wx:if="{{loading && !statements.length}}" class="loading">正在加载对账单...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadData">{{error}}，点击重试</view>
+  <view wx:elif="{{!statements.length}}" class="empty">暂无对账单</view>
+
+  <block wx:else>
+    <view class="statement-card" wx:for="{{statements}}" wx:key="id" data-id="{{item.id}}" bindtap="openDetail">
+      <view class="between">
+        <view class="statement-no">{{item.statementNo}}</view>
+        <view class="status-pill {{item.statusClass}}">{{item.statusText}}</view>
+      </view>
+      <view class="muted period">{{item.periodText}}</view>
+      <view class="amount-grid">
+        <view class="amount-item">
+          <view class="amount-value">¥{{item.totalText}}</view>
+          <view class="amount-label">对账金额</view>
+        </view>
+        <view class="amount-item">
+          <view class="amount-value">¥{{item.deductionText}}</view>
+          <view class="amount-label">扣款</view>
+        </view>
+        <view class="amount-item">
+          <view class="amount-value highlight">¥{{item.payableText}}</view>
+          <view class="amount-label">应付金额</view>
+        </view>
+      </view>
+      <view class="statement-foot">
+        <text class="muted">{{item.createdText}}</text>
+        <text class="detail-link">查看详情 ›</text>
+      </view>
+    </view>
+    <view wx:if="{{loading}}" class="loading">加载更多中...</view>
+    <view wx:elif="{{statements.length >= total}}" class="muted list-end">没有更多对账单了</view>
+  </block>
+
+  <view wx:if="{{showDetail}}" class="modal-mask" bindtap="closeDetail">
+    <view class="modal-panel" catchtap="stopTap">
+      <view class="modal-title">对账详情</view>
+      <view wx:if="{{detailLoading}}" class="loading">正在加载...</view>
+      <block wx:elif="{{detail}}">
+        <view class="between">
+          <view class="detail-no">{{detail.statementNo}}</view>
+          <view class="status-pill {{detail.statusClass}}">{{detail.statusText}}</view>
+        </view>
+        <view class="muted detail-time">{{detail.periodText}}</view>
+
+        <view class="detail-section">
+          <view class="detail-row">
+            <text class="label">对账金额</text>
+            <text>¥{{detail.totalText}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">扣款金额</text>
+            <text>¥{{detail.deductionText}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">应付金额</text>
+            <text class="price">¥{{detail.payableText}}</text>
+          </view>
+        </view>
+
+        <view class="detail-section">
+          <view class="detail-section-title">对账明细</view>
+          <view wx:if="{{!detailItems.length}}" class="empty small-empty">暂无明细</view>
+          <view class="detail-item" wx:for="{{detailItems}}" wx:key="id">
+            <view class="flex-1">
+              <view class="detail-item-name">{{item.refNo || item.refType}}</view>
+              <view class="muted">扣款 ¥{{item.deductionText}}</view>
+            </view>
+            <view class="detail-item-amount">¥{{item.payableText}}</view>
+          </view>
+        </view>
+
+        <view wx:if="{{detailInvoices.length}}" class="detail-section">
+          <view class="detail-section-title">发票</view>
+          <view class="detail-item" wx:for="{{detailInvoices}}" wx:key="id">
+            <view class="flex-1">
+              <view class="detail-item-name">{{item.invoiceNo}}</view>
+              <view class="muted">{{item.status}}</view>
+            </view>
+            <view class="detail-item-amount">¥{{item.amountText}}</view>
+          </view>
+        </view>
+
+        <view class="modal-actions">
+          <button wx:if="{{detail.status === 'PENDING'}}" class="btn-danger" bindtap="dispute" disabled="{{acting}}">申诉</button>
+          <button wx:if="{{detail.status === 'PENDING'}}" class="btn-primary" bindtap="confirmStatement" disabled="{{acting}}">确认对账</button>
+          <button class="btn-ghost" bindtap="closeDetail">关闭</button>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

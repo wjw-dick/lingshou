@@ -1,0 +1,95 @@
+<view class="page">
+  <scroll-view class="tabs" scroll-x="{{true}}">
+    <view wx:for="{{tabs}}" wx:key="value" class="tab {{status === item.value ? 'active' : ''}}" data-value="{{item.value}}" bindtap="switchTab">{{item.label}}</view>
+  </scroll-view>
+
+  <view wx:if="{{loading && !orders.length}}" class="loading">正在加载订单...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadOrders">{{error}}，点击重试</view>
+  <view wx:elif="{{!orders.length}}" class="empty">暂无订单</view>
+
+  <block wx:else>
+    <view class="order-card" wx:for="{{orders}}" wx:key="key" data-id="{{item.order.id}}" bindtap="openDetail">
+      <view class="between">
+        <view class="order-no">{{item.order.orderNo}}</view>
+        <view class="status-pill {{item.statusClass}}">{{item.statusText}}</view>
+      </view>
+      <view class="order-time">{{item.createdText}} · {{item.deliveryTypeText}}</view>
+      <view class="order-mid">
+        <view class="order-customer">{{item.memberName}}</view>
+        <view class="order-amount">
+          <text class="muted">应付</text>
+          <text class="price"><text class="price-symbol">¥</text>{{item.amountText}}</text>
+        </view>
+      </view>
+      <view class="order-foot">
+        <text class="muted">{{item.order.remark || '无备注'}}</text>
+        <text class="detail-link">查看详情 ›</text>
+      </view>
+    </view>
+    <view wx:if="{{loading}}" class="loading">加载更多中...</view>
+    <view wx:elif="{{orders.length >= total}}" class="muted list-end">没有更多订单了</view>
+  </block>
+
+  <view wx:if="{{showDetail}}" class="modal-mask" bindtap="closeDetail">
+    <view class="modal-panel" catchtap="stopTap">
+      <view class="modal-title">订单详情</view>
+      <view wx:if="{{detailLoading}}" class="loading">正在加载...</view>
+      <block wx:elif="{{detail}}">
+        <view class="between">
+          <view class="detail-order-no">{{detail.orderNo}}</view>
+          <view class="status-pill {{detail.statusClass}}">{{detail.statusText}}</view>
+        </view>
+        <view class="muted detail-time">{{detail.createdText}} · {{detail.deliveryTypeText}}</view>
+
+        <view class="detail-section">
+          <view class="detail-section-title">商品明细</view>
+          <view class="detail-item" wx:for="{{detailItems}}" wx:key="id">
+            <view class="flex-1">
+              <view class="detail-item-name">{{item.skuName}}</view>
+              <view class="muted">¥{{item.priceText}} × {{item.qty}}</view>
+            </view>
+            <view class="detail-item-amount">¥{{item.amountText}}</view>
+          </view>
+        </view>
+
+        <view class="detail-section">
+          <view class="detail-row">
+            <text class="label">商品金额</text>
+            <text>¥{{detail.totalText}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">优惠金额</text>
+            <text class="discount">-¥{{detail.discountText}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">应付金额</text>
+            <text class="price">¥{{detail.payableText}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">支付状态</text>
+            <text>{{detail.payStatus === 'PAID' ? '已支付' : '未支付'}}</text>
+          </view>
+          <view wx:if="{{detail.deliveryType === 'DELIVERY'}}" class="detail-row">
+            <text class="label">配送信息</text>
+            <text>{{detail.deliveryName}} {{detail.deliveryPhone}}</text>
+          </view>
+          <view wx:if="{{detail.deliveryType === 'DELIVERY'}}" class="detail-row">
+            <text class="label">配送地址</text>
+            <text>{{detail.deliveryAddress}}</text>
+          </view>
+          <view wx:if="{{detail.remark}}" class="detail-row">
+            <text class="label">备注</text>
+            <text>{{detail.remark}}</text>
+          </view>
+        </view>
+
+        <view class="modal-actions">
+          <button wx:if="{{detail.status === 'PENDING_ACCEPT'}}" class="btn-primary" bindtap="accept" disabled="{{acting}}">接单</button>
+          <button wx:if="{{detail.status === 'PICKING'}}" class="btn-primary" bindtap="pickComplete" disabled="{{acting}}">拣货完成</button>
+          <button wx:if="{{detail.status === 'WAIT_PICKUP' || detail.status === 'DELIVERING'}}" class="btn-primary" bindtap="complete" disabled="{{acting}}">完成订单</button>
+          <button class="btn-ghost" bindtap="closeDetail">关闭</button>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

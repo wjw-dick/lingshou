@@ -1,0 +1,64 @@
+<view class="page">
+  <view class="hero-card">
+    <view class="hero-badge">供应商工作台</view>
+    <view class="hero-name">{{supplier ? supplier.name : '悦享便利供应商'}}</view>
+    <view class="hero-meta">{{supplier ? (supplier.code + ' · ' + (supplier.contact || '联系人')) : '登录后查看供货业务'}}</view>
+    <view class="hero-stats">
+      <view class="stat-item">
+        <view class="stat-value">{{pendingOrders}}</view>
+        <view class="stat-label">待接供货单</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{pendingStatements}}</view>
+        <view class="stat-label">待确认对账</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{!hasToken}}" class="card login-tip">
+    <view class="login-title">请先登录供应商账号</view>
+    <button class="btn-primary login-btn" bindtap="goLogin">去登录</button>
+  </view>
+
+  <view wx:elif="{{loading}}" class="loading">正在加载首页...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadHome">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <view class="quick-grid">
+      <view class="quick-item" bindtap="goOrders">
+        <view class="quick-icon green">单</view>
+        <view class="quick-text">供货单</view>
+      </view>
+      <view class="quick-item" bindtap="goStatements">
+        <view class="quick-icon blue">账</view>
+        <view class="quick-text">对账单</view>
+      </view>
+      <view class="quick-item" bindtap="goProducts">
+        <view class="quick-icon orange">品</view>
+        <view class="quick-text">供货商品</view>
+      </view>
+      <view class="quick-item" bindtap="goQualifications">
+        <view class="quick-icon pink">证</view>
+        <view class="quick-text">资质管理</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="section-title">
+        <text>最近供货单</text>
+        <text class="link" bindtap="goOrders">全部 ›</text>
+      </view>
+      <view wx:if="{{!recent.length}}" class="empty small-empty">暂无供货单</view>
+      <view class="recent-item" wx:for="{{recent}}" wx:key="id" bindtap="goOrders">
+        <view class="flex-1">
+          <view class="recent-no">{{item.orderNo}}</view>
+          <view class="muted">{{item.createdText}} · {{item.itemCount}} 种商品</view>
+        </view>
+        <view class="recent-right">
+          <view class="status-pill {{item.statusText === '待处理' ? 'orange' : 'green'}}">{{item.statusText}}</view>
+          <view class="price recent-amount">¥{{item.amountText}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

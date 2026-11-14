@@ -1,0 +1,85 @@
+<view class="page">
+  <view class="hero-card">
+    <view class="hero-badge">加盟商经营看板</view>
+    <view class="hero-name">{{franchisee ? franchisee.name : '悦享便利加盟商'}}</view>
+    <view class="hero-meta">{{franchisee ? (franchisee.code + ' · ' + (franchisee.contact || '联系人')) : '登录后查看经营数据'}}</view>
+    <view class="hero-stats">
+      <view class="stat-item">
+        <view class="stat-value">{{storeCount}}</view>
+        <view class="stat-label">托管门店</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{pendingOrders}}</view>
+        <view class="stat-label">待处理报单</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{pendingStatements}}</view>
+        <view class="stat-label">待确认对账</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{!hasToken}}" class="card login-tip">
+    <view class="login-title">请先登录加盟商账号</view>
+    <button class="btn-primary login-btn" bindtap="goLogin">去登录</button>
+  </view>
+
+  <view wx:elif="{{loading}}" class="loading">正在加载首页...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadHome">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <view class="credit-card">
+      <view class="between">
+        <view class="credit-title">授信额度</view>
+        <view class="credit-available">可用 ¥{{availableText}}</view>
+      </view>
+      <view class="credit-values">
+        <view class="credit-item">
+          <view class="credit-value">¥{{creditLimitText}}</view>
+          <view class="credit-label">总额度</view>
+        </view>
+        <view class="credit-item">
+          <view class="credit-value">¥{{usedCreditText}}</view>
+          <view class="credit-label">已用额度</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="quick-grid">
+      <view class="quick-item" bindtap="goCreate">
+        <view class="quick-icon green">报</view>
+        <view class="quick-text">我要报单</view>
+      </view>
+      <view class="quick-item" bindtap="goOrders">
+        <view class="quick-icon blue">单</view>
+        <view class="quick-text">我的报单</view>
+      </view>
+      <view class="quick-item" bindtap="goStores">
+        <view class="quick-icon orange">店</view>
+        <view class="quick-text">门店概览</view>
+      </view>
+      <view class="quick-item" bindtap="goCommissions">
+        <view class="quick-icon pink">账</view>
+        <view class="quick-text">分账明细</view>
+      </view>
+    </view>
+
+    <view class="card entry-list">
+      <view class="entry-item" bindtap="goStores">
+        <view class="entry-title">门店经营概览</view>
+        <view class="muted">查看门店销售、库存与会员数据</view>
+        <view class="entry-arrow">›</view>
+      </view>
+      <view class="entry-item" bindtap="goStatements">
+        <view class="entry-title">对账单</view>
+        <view class="muted">查看并确认加盟对账单</view>
+        <view class="entry-arrow">›</view>
+      </view>
+      <view class="entry-item" bindtap="goCommissions">
+        <view class="entry-title">分账明细</view>
+        <view class="muted">销售提成与分账记录</view>
+        <view class="entry-arrow">›</view>
+      </view>
+    </view>
+  </block>
+</view>

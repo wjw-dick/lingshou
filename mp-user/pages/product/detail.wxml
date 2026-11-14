@@ -1,0 +1,70 @@
+<view class="page detail-page">
+  <view wx:if="{{loading}}" class="loading">正在加载商品详情...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadDetail">{{error}}，点击重试</view>
+
+  <block wx:else>
+    <view class="hero-card">
+      <image wx:if="{{product.image}}" class="hero-image" src="{{product.image}}" mode="aspectFill"></image>
+      <view wx:else class="hero-placeholder">{{product.initial}}</view>
+    </view>
+
+    <view class="card">
+      <view class="price-row">
+        <view class="price big"><text class="price-symbol">¥</text>{{product.price}}</view>
+        <view class="origin-price">门店价 ¥{{product.originPrice}}</view>
+        <view class="status-pill green">线上可售</view>
+      </view>
+      <view class="product-name">{{product.name}}</view>
+      <view class="product-spec">{{product.spec}} {{product.unit}} · 条码 {{product.barcode}}</view>
+      <view wx:if="{{product.tags}}" class="tag-row">
+        <text class="tag">{{product.tags}}</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="section-title">商品信息</view>
+      <view class="info-row">
+        <text class="label">配料</text>
+        <text class="info-value">{{product.ingredients}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">保质期</text>
+        <text class="info-value">{{product.shelfLifeDays}} 天</text>
+      </view>
+      <view class="info-row">
+        <text class="label">贮存条件</text>
+        <text class="info-value">{{storageText}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">过敏原</text>
+        <text class="info-value">{{product.allergens}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">产地</text>
+        <text class="info-value">{{product.origin}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">商品编码</text>
+        <text class="info-value">{{product.skuCode}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">线上可售</text>
+        <text class="info-value">{{product.onlineSale ? '是' : '否'}}</text>
+      </view>
+    </view>
+
+    <view class="buy-bar">
+      <view class="qty-box">
+        <view class="qty-btn" bindtap="minus">-</view>
+        <view class="qty-value">{{qty}}</view>
+        <view class="qty-btn" bindtap="plus">+</view>
+      </view>
+      <view class="buy-total">
+        <text class="muted">合计</text>
+        <text class="price total-price"><text class="price-symbol">¥</text>{{totalText}}</text>
+      </view>
+      <button class="btn-ghost cart-btn" bindtap="addCart">加入购物车</button>
+      <button class="btn-primary buy-btn" bindtap="buyNow">立即购买</button>
+    </view>
+  </block>
+</view>

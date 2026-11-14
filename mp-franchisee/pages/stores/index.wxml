@@ -1,0 +1,40 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="loading">正在加载门店数据...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadStores">{{error}}，点击重试</view>
+  <view wx:elif="{{!rows.length}}" class="empty">暂无托管门店</view>
+
+  <view wx:else>
+    <view class="store-card" wx:for="{{rows}}" wx:key="key">
+      <view class="store-head">
+        <view class="store-avatar">{{item.initial}}</view>
+        <view class="flex-1">
+          <view class="store-name">{{item.store.name}}</view>
+          <view class="muted">{{item.store.region}} · {{item.store.businessHours || '09:00-22:00'}}</view>
+        </view>
+        <view class="status-pill {{item.store.status === 'OPEN' ? 'green' : 'gray'}}">{{item.statusText}}</view>
+      </view>
+
+      <view class="store-address">{{item.store.address}}</view>
+
+      <view class="metric-grid">
+        <view class="metric-item">
+          <view class="metric-value">¥{{item.salesText}}</view>
+          <view class="metric-label">近30天销售</view>
+        </view>
+        <view class="metric-item">
+          <view class="metric-value">{{item.stockQty}}</view>
+          <view class="metric-label">库存件数</view>
+        </view>
+        <view class="metric-item">
+          <view class="metric-value">{{item.memberCount}}</view>
+          <view class="metric-label">会员数</view>
+        </view>
+      </view>
+
+      <view class="store-foot">
+        <text class="muted">合作开始 {{item.joinText}}</text>
+        <text class="muted">门店 #{{item.store.id}}</text>
+      </view>
+    </view>
+  </view>
+</view>

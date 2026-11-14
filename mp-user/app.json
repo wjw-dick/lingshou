@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/store/index",
+    "pages/store/detail",
+    "pages/product/index",
+    "pages/product/detail",
+    "pages/cart/index",
+    "pages/order/index",
+    "pages/order/detail",
+    "pages/member/index",
+    "pages/coupon/index",
+    "pages/login/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "悦享便利",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f4f7f5",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8a9490",
+    "selectedColor": "#12a15a",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/store/index",
+        "text": "找店"
+      },
+      {
+        "pagePath": "pages/order/index",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/member/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

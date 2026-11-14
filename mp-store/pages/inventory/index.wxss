@@ -1,0 +1,161 @@
+.stock-card,
+.record-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 18rpx;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.stock-name {
+  font-size: 29rpx;
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+  margin-right: 16rpx;
+}
+
+.stock-meta {
+  margin-top: 6rpx;
+}
+
+.stock-grid {
+  display: flex;
+  margin-top: 16rpx;
+  background: #f8fbf9;
+  border-radius: 18rpx;
+  padding: 18rpx 0;
+}
+
+.stock-metric {
+  flex: 1;
+  text-align: center;
+}
+
+.metric-value {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.metric-label {
+  margin-top: 2rpx;
+  font-size: 21rpx;
+  color: #9aa6a0;
+}
+
+.alert-summary {
+  display: flex;
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 24rpx 0;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.alert-item {
+  flex: 1;
+  text-align: center;
+}
+
+.alert-value {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.alert-value.orange {
+  color: #e9832f;
+}
+
+.alert-value.red {
+  color: #d9534f;
+}
+
+.alert-value.blue {
+  color: #2f6bff;
+}
+
+.alert-value.gray {
+  color: #8b9791;
+}
+
+.alert-label {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: #6b7873;
+}
+
+.alert-row {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #f3f6f4;
+}
+
+.alert-row:last-child {
+  border-bottom: none;
+}
+
+.alert-name {
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.alert-qty {
+  font-size: 23rpx;
+  color: #6b7873;
+  margin-left: 20rpx;
+}
+
+.alert-qty.orange {
+  color: #e9832f;
+}
+
+.small-empty {
+  padding: 30rpx 0;
+}
+
+.create-btn {
+  margin-bottom: 20rpx;
+}
+
+.record-no {
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.record-meta {
+  margin-top: 8rpx;
+}
+
+.record-amount {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #e8542f;
+}
+
+.form-line {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f3f6f4;
+}
+
+.item-label {
+  width: 180rpx;
+  font-size: 25rpx;
+  color: #6b7873;
+  flex-shrink: 0;
+}
+
+.item-input {
+  flex: 1;
+  text-align: right;
+  background: #f5f8f6;
+  padding: 10rpx 18rpx;
+}
+
+.picker-value {
+  text-align: right;
+  font-size: 25rpx;
+  color: #12a15a;
+}

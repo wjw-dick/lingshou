@@ -1,0 +1,35 @@
+# runtime
+.runtime/
+data/
+logs/
+backend/target/
+backend/logs/
+backend/data/
+
+# frontend
+node_modules/
+dist/
+web-admin/node_modules/
+web-admin/dist/
+web-portal/node_modules/
+web-portal/dist/
+
+# env & secrets
+.env
+*.local
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# mini program build
+mp-*/miniprogram_npm/
+
+# flutter
+app-flutter/.dart_tool/
+app-flutter/build/
+app-flutter/.flutter-plugins
+app-flutter/.packages

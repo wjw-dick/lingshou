@@ -1,0 +1,109 @@
+<view class="member-page">
+  <view class="member-hero">
+    <view wx:if="{{member}}" class="member-row">
+      <view class="avatar">{{member.initial}}</view>
+      <view class="member-info">
+        <view class="nickname">{{member.nickname}}</view>
+        <view class="level-line">
+          <text class="level-badge">{{levelName}}</text>
+          <text class="member-phone">{{member.phoneMask || '未绑定手机号'}}</text>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="member-row">
+      <view class="avatar">悦</view>
+      <view class="member-info">
+        <view class="nickname">未登录</view>
+        <view class="level-line">
+          <text class="member-phone">登录享会员价与积分</text>
+        </view>
+      </view>
+      <view class="login-link" bindtap="goLogin">去登录</view>
+    </view>
+
+    <view class="wallet-row">
+      <view class="wallet-item">
+        <view class="wallet-value">{{member ? member.points : 0}}</view>
+        <view class="wallet-label">积分</view>
+      </view>
+      <view class="wallet-item">
+        <view class="wallet-value">¥{{member ? member.walletText : '0.00'}}</view>
+        <view class="wallet-label">储值余额</view>
+      </view>
+      <view class="wallet-item" bindtap="goCoupons">
+        <view class="wallet-value">{{unusedCoupons}}</view>
+        <view class="wallet-label">优惠券</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page">
+    <view wx:if="{{loading}}" class="loading">正在加载会员信息...</view>
+    <view wx:elif="{{error}}" class="error-box" bindtap="loadProfile">{{error}}，点击重试</view>
+
+    <view class="card menu-grid">
+      <view class="menu-item" bindtap="goOrders">
+        <view class="menu-icon green">单</view>
+        <view class="menu-text">我的订单</view>
+      </view>
+      <view class="menu-item" bindtap="goCoupons">
+        <view class="menu-icon blue">券</view>
+        <view class="menu-text">优惠券</view>
+      </view>
+      <view class="menu-item" bindtap="goCart">
+        <view class="menu-icon orange">车</view>
+        <view class="menu-text">购物车</view>
+      </view>
+      <view class="menu-item" bindtap="goStores">
+        <view class="menu-icon pink">店</view>
+        <view class="menu-text">找店</view>
+      </view>
+    </view>
+
+    <view wx:if="{{hasToken}}" class="card">
+      <view class="section-title">
+        <text>地址管理</text>
+        <text class="link" bindtap="toggleAddressForm">{{showAddressForm ? '收起' : '新增地址'}}</text>
+      </view>
+
+      <view wx:if="{{showAddressForm}}" class="address-form">
+        <input class="input form-input" placeholder="联系人" value="{{addressForm.name}}" data-field="name" bindinput="onAddressInput" />
+        <input class="input form-input" type="number" placeholder="手机号" value="{{addressForm.phone}}" data-field="phone" bindinput="onAddressInput" />
+        <textarea class="input form-textarea" placeholder="详细地址" value="{{addressForm.address}}" data-field="address" bindinput="onAddressInput"></textarea>
+        <button class="btn-primary save-btn" bindtap="saveAddress" disabled="{{saving}}">保存地址</button>
+      </view>
+
+      <view wx:if="{{!addresses.length}}" class="empty address-empty">暂无收货地址</view>
+      <view wx:for="{{addresses}}" wx:key="id" class="address-item">
+        <view class="address-main">
+          <view class="address-top">
+            <text class="address-name">{{item.name}}</text>
+            <text class="address-phone">{{item.phone}}</text>
+            <text wx:if="{{item.isDefault === 1}}" class="tag">默认</text>
+          </view>
+          <view class="address-text">{{item.address}}</view>
+        </view>
+        <view class="address-actions">
+          <text wx:if="{{item.isDefault !== 1}}" class="address-action" data-index="{{index}}" bindtap="setDefaultAddress">设默认</text>
+          <text class="address-action danger" data-index="{{index}}" bindtap="deleteAddress">删除</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{hasToken}}" class="card">
+      <view class="cell" bindtap="goOrders">
+        <text>我的订单</text>
+        <text class="muted">查看全部 ›</text>
+      </view>
+      <view class="cell" bindtap="goCoupons">
+        <text>我的优惠券</text>
+        <text class="muted">{{unusedCoupons}} 张可用 ›</text>
+      </view>
+      <view class="cell" bindtap="goStores">
+        <text>附近门店</text>
+        <text class="muted">去看看 ›</text>
+      </view>
+      <view class="cell logout" bindtap="logout">退出登录</view>
+    </view>
+  </view>
+</view>

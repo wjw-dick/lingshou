@@ -1,0 +1,86 @@
+.shift-hero {
+  padding: 12rpx 0 28rpx;
+}
+
+.shift-badge {
+  display: inline-block;
+  background: #fff3e8;
+  color: #e9832f;
+  border-radius: 999rpx;
+  padding: 6rpx 20rpx;
+  font-size: 22rpx;
+}
+
+.shift-title {
+  margin-top: 16rpx;
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.shift-card {
+  background: linear-gradient(135deg, #ffffff, #f5fcf8);
+}
+
+.shift-no {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.shift-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 22rpx 0 10rpx;
+  background: #f8fbf9;
+  border-radius: 18rpx;
+  padding: 10rpx 0;
+}
+
+.shift-item {
+  width: 50%;
+  padding: 14rpx 0;
+  text-align: center;
+}
+
+.shift-value {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.shift-label {
+  margin-top: 2rpx;
+  font-size: 21rpx;
+  color: #9aa6a0;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  font-size: 26rpx;
+}
+
+.form-line {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f3f6f4;
+}
+
+.item-label {
+  width: 220rpx;
+  font-size: 25rpx;
+  color: #6b7873;
+  flex-shrink: 0;
+}
+
+.item-input {
+  flex: 1;
+  text-align: right;
+  background: #f5f8f6;
+  padding: 10rpx 18rpx;
+}
+
+.shift-btn {
+  margin-top: 28rpx;
+}

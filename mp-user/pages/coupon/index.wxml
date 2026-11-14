@@ -1,0 +1,53 @@
+<view class="page">
+  <view wx:if="{{!hasToken}}" class="card login-tip">
+    <view class="login-title">登录后领取优惠券</view>
+    <button class="btn-primary login-btn" bindtap="goLogin">去登录</button>
+  </view>
+
+  <block wx:else>
+    <view class="segment">
+      <view class="segment-item {{tab === 'mine' ? 'active' : ''}}" data-tab="mine" bindtap="switchTab">我的优惠券</view>
+      <view class="segment-item {{tab === 'available' ? 'active' : ''}}" data-tab="available" bindtap="switchTab">领券中心</view>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading">正在加载优惠券...</view>
+    <view wx:elif="{{error}}" class="error-box" bindtap="loadCoupons">{{error}}，点击重试</view>
+
+    <block wx:else>
+      <block wx:if="{{tab === 'mine'}}">
+        <view wx:if="{{!myCoupons.length}}" class="empty">暂无优惠券，去领券中心看看吧</view>
+        <view wx:for="{{myCoupons}}" wx:key="key" class="coupon-card {{item.usable ? '' : 'disabled'}}">
+          <view class="coupon-left">
+            <view class="coupon-value">{{item.value}}</view>
+            <view class="coupon-threshold">{{item.threshold}}</view>
+          </view>
+          <view class="coupon-right">
+            <view class="coupon-name">{{item.name}}</view>
+            <view class="coupon-validity">{{item.validity}}</view>
+            <view class="coupon-status">{{item.statusText}}</view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:else>
+        <view wx:if="{{!available.length}}" class="empty">暂无可领取优惠券</view>
+        <view wx:for="{{available}}" wx:key="key" class="coupon-card">
+          <view class="coupon-left">
+            <view class="coupon-value">{{item.value}}</view>
+            <view class="coupon-threshold">{{item.threshold}}</view>
+          </view>
+          <view class="coupon-right">
+            <view class="coupon-name">{{item.name}}</view>
+            <view class="coupon-validity">{{item.validity}}</view>
+            <view class="coupon-action">
+              <text wx:if="{{item.owned}}" class="muted">已领 {{item.owned}} 张</text>
+              <button class="btn-primary btn-sm" data-id="{{item.coupon.id}}" bindtap="claim" disabled="{{!item.claimable || claiming == item.coupon.id}}">
+                {{item.claimable ? '立即领取' : '不可领取'}}
+              </button>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </block>
+</view>

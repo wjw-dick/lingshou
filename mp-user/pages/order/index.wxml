@@ -1,0 +1,40 @@
+<view class="page">
+  <scroll-view class="tabs" scroll-x="{{true}}">
+    <view wx:for="{{tabs}}" wx:key="value" class="tab {{status === item.value ? 'active' : ''}}" data-value="{{item.value}}" bindtap="switchTab">{{item.label}}</view>
+  </scroll-view>
+
+  <view wx:if="{{!hasToken}}" class="card login-tip">
+    <view class="login-title">登录后查看订单</view>
+    <button class="btn-primary login-btn" bindtap="goLogin">去登录</button>
+  </view>
+
+  <view wx:elif="{{loading && !orders.length}}" class="loading">正在加载订单...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadOrders">{{error}}，点击重试</view>
+  <view wx:elif="{{!orders.length}}" class="empty">暂无相关订单</view>
+
+  <block wx:else>
+    <view class="order-card" wx:for="{{orders}}" wx:key="key" data-id="{{item.order.id}}" bindtap="goDetail">
+      <view class="order-head">
+        <view class="order-no">订单 {{item.order.orderNo}}</view>
+        <view class="status-pill {{item.statusClass}}">{{item.statusText}}</view>
+      </view>
+      <view class="order-time">{{item.createdText}}</view>
+      <view class="order-body">
+        <view class="order-summary ellipsis">{{item.summary}}</view>
+        <view class="order-count">共 {{item.itemCount}} 件</view>
+      </view>
+      <view class="order-foot">
+        <view class="muted">{{item.order.deliveryType === 'DELIVERY' ? '外送到家' : '到店自提'}}</view>
+        <view class="order-amount">
+          <text class="muted">实付</text>
+          <text class="price"><text class="price-symbol">¥</text>{{item.amountText}}</text>
+        </view>
+      </view>
+      <view class="order-actions">
+        <view class="detail-link">查看详情 ›</view>
+      </view>
+    </view>
+    <view wx:if="{{loading}}" class="loading">加载更多中...</view>
+    <view wx:elif="{{orders.length >= total}}" class="muted list-end">没有更多订单了</view>
+  </block>
+</view>

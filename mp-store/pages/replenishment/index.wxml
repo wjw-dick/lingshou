@@ -1,0 +1,66 @@
+<view class="page replenish-page">
+  <view class="card tip-card">
+    <view class="tip-title">智能补货建议</view>
+    <view class="muted">结合近 30 天销量、安全库存与在途数量自动测算，可按实际调整数量。</view>
+    <view class="date-line">
+      <text class="label">期望到货</text>
+      <picker mode="date" value="{{expectedAt}}" bindchange="onDateChange">
+        <view class="picker-value">{{expectedAt}} ›</view>
+      </picker>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading">正在计算补货建议...</view>
+  <view wx:elif="{{error}}" class="error-box" bindtap="loadRows">{{error}}，点击重试</view>
+  <view wx:elif="{{!rows.length}}" class="empty">暂无补货建议</view>
+
+  <block wx:else>
+    <view class="row-card {{item.checked ? 'checked' : ''}}" wx:for="{{rows}}" wx:key="skuId" data-index="{{index}}" bindtap="toggleRow">
+      <view class="row-head">
+        <view class="check-dot">{{item.checked ? '✓' : ''}}</view>
+        <view class="row-title">
+          <view class="sku-name">{{item.skuName}}</view>
+          <view class="muted">{{item.skuCode}} · {{item.storageText}} · 日均 {{item.avgDailyText}}</view>
+        </view>
+        <view class="suggest-badge">建议 {{item.suggestion}}</view>
+      </view>
+      <view class="meta-grid">
+        <view class="meta-item">
+          <view class="meta-value">{{item.onHand}}</view>
+          <view class="meta-label">现有库存</view>
+        </view>
+        <view class="meta-item">
+          <view class="meta-value">{{item.safetyStock}}</view>
+          <view class="meta-label">安全库存</view>
+        </view>
+        <view class="meta-item">
+          <view class="meta-value">{{item.inTransit}}</view>
+          <view class="meta-label">在途</view>
+        </view>
+        <view class="meta-item">
+          <view class="meta-value">¥{{item.priceText}}</view>
+          <view class="meta-label">供货价</view>
+        </view>
+      </view>
+      <view class="qty-line" catchtap="stopTap">
+        <text class="label">订货数量</text>
+        <input class="input qty-input" type="number" value="{{item.qty}}" data-index="{{index}}" bindinput="onQtyInput" />
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="field-line">
+        <text class="label">备注</text>
+        <input class="input remark-input" value="{{remark}}" bindinput="onRemarkInput" />
+      </view>
+    </view>
+
+    <view class="submit-bar">
+      <view class="submit-total">
+        <text class="muted">预计金额</text>
+        <text class="price total-price"><text class="price-symbol">¥</text>{{totalText}}</text>
+      </view>
+      <button class="btn-primary submit-btn" bindtap="submit" disabled="{{submitting}}">{{submitting ? '提交中...' : '提交补货单'}}</button>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,22 @@
+<view class="login-page">
+  <view class="login-hero">
+    <view class="logo">供</view>
+    <view class="brand">悦享便利 · 供应商端</view>
+    <view class="slogan">接单 · 发货 · 对账一站式</view>
+  </view>
+
+  <view class="login-card">
+    <view class="field">
+      <text class="field-label">账号</text>
+      <input class="field-input" placeholder="请输入供应商账号" value="{{username}}" bindinput="onUsername" />
+    </view>
+    <view class="field">
+      <text class="field-label">密码</text>
+      <input class="field-input" password="{{true}}" placeholder="请输入密码" value="{{password}}" bindinput="onPassword" />
+    </view>
+    <button class="btn-primary login-btn" bindtap="login" disabled="{{loading}}">{{loading ? '登录中...' : '登录'}}</button>
+    <view class="demo-tip">演示账号 gys01 / Admin@123</view>
+  </view>
+
+  <view class="api-tip">接口地址：{{baseUrl}}</view>
+</view>

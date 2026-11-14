@@ -1,0 +1,96 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 999rpx;
+  padding: 10rpx 12rpx 10rpx 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.search-input {
+  flex: 1;
+  font-size: 27rpx;
+  height: 60rpx;
+}
+
+.search-btn {
+  background: #12a15a;
+  color: #ffffff;
+  border-radius: 999rpx;
+  padding: 12rpx 30rpx;
+  font-size: 24rpx;
+}
+
+.store-card {
+  display: flex;
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.store-avatar {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 26rpx;
+  background: linear-gradient(135deg, #eaf7f0, #d4f0e0);
+  color: #12a15a;
+  font-size: 38rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.store-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.store-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.store-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+  margin-right: 12rpx;
+}
+
+.store-meta {
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.store-delivery {
+  font-size: 22rpx;
+  color: #8b9791;
+}
+
+.store-address {
+  margin-top: 12rpx;
+  font-size: 25rpx;
+  color: #4d5b55;
+}
+
+.store-foot {
+  margin-top: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.store-arrow {
+  font-size: 23rpx;
+  color: #12a15a;
+}

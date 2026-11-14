@@ -1,0 +1,186 @@
+.hero-card {
+  background: linear-gradient(135deg, #0d8b4f, #12a15a 55%, #59c98c);
+  border-radius: 28rpx;
+  color: #ffffff;
+  padding: 34rpx;
+  margin-bottom: 28rpx;
+  box-shadow: 0 16rpx 40rpx rgba(18, 161, 90, 0.24);
+}
+
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.hero-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-sales {
+  margin-top: 6rpx;
+  font-size: 56rpx;
+  font-weight: 700;
+}
+
+.hero-badge {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999rpx;
+  padding: 8rpx 22rpx;
+  font-size: 24rpx;
+}
+
+.hero-store {
+  margin-top: 28rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  font-size: 25rpx;
+}
+
+.dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #b8ffd5;
+}
+
+.hero-store-id {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 22rpx;
+}
+
+.login-tip {
+  text-align: center;
+}
+
+.login-title {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.login-btn {
+  margin-top: 20rpx;
+}
+
+.todo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  margin-bottom: 28rpx;
+}
+
+.todo-card {
+  background: #ffffff;
+  border-radius: 22rpx;
+  padding: 24rpx 12rpx;
+  text-align: center;
+  box-shadow: 0 8rpx 24rpx rgba(18, 161, 90, 0.06);
+}
+
+.todo-value {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.todo-value.green {
+  color: #12a15a;
+}
+
+.todo-value.blue {
+  color: #2f6bff;
+}
+
+.todo-value.orange {
+  color: #e9832f;
+}
+
+.todo-value.red {
+  color: #d9534f;
+}
+
+.todo-label {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #6b7873;
+}
+
+.action-list {
+  padding: 8rpx 28rpx;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid #f3f6f4;
+}
+
+.action-item:last-child {
+  border-bottom: none;
+}
+
+.action-icon {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 22rpx;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.action-icon.green {
+  background: linear-gradient(135deg, #12a15a, #62cf98);
+}
+
+.action-icon.blue {
+  background: linear-gradient(135deg, #2f6bff, #7aa2ff);
+}
+
+.action-icon.orange {
+  background: linear-gradient(135deg, #f08a24, #ffc46b);
+}
+
+.action-icon.pink {
+  background: linear-gradient(135deg, #e05a8a, #ff9bbf);
+}
+
+.action-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.action-title {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.action-arrow {
+  font-size: 36rpx;
+  color: #c3ccc8;
+}
+
+.notice-item {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+}
+
+.notice-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #12a15a;
+  margin-right: 16rpx;
+}
+
+.notice-text {
+  font-size: 26rpx;
+  color: #4d5b55;
+}

@@ -1,0 +1,236 @@
+.member-page {
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+.member-hero {
+  background: linear-gradient(135deg, #0d8b4f, #12a15a 55%, #59c98c);
+  color: #ffffff;
+  padding: 60rpx 32rpx 40rpx;
+  border-radius: 0 0 40rpx 40rpx;
+}
+
+.member-row {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.24);
+  border: 3rpx solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  font-weight: 700;
+  margin-right: 24rpx;
+}
+
+.member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.level-line {
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+}
+
+.level-badge {
+  background: rgba(255, 255, 255, 0.24);
+  border-radius: 999rpx;
+  padding: 4rpx 16rpx;
+  font-size: 21rpx;
+}
+
+.member-phone {
+  font-size: 23rpx;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.login-link {
+  font-size: 25rpx;
+  padding: 10rpx 24rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.wallet-row {
+  margin-top: 36rpx;
+  display: flex;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 22rpx;
+  padding: 24rpx 0;
+}
+
+.wallet-item {
+  flex: 1;
+  text-align: center;
+}
+
+.wallet-item + .wallet-item {
+  border-left: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+.wallet-value {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.wallet-label {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.menu-grid {
+  display: flex;
+  justify-content: space-between;
+  padding: 28rpx 12rpx;
+}
+
+.menu-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-icon {
+  width: 78rpx;
+  height: 78rpx;
+  border-radius: 24rpx;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-icon.green {
+  background: linear-gradient(135deg, #12a15a, #62cf98);
+}
+
+.menu-icon.blue {
+  background: linear-gradient(135deg, #2f6bff, #7aa2ff);
+}
+
+.menu-icon.orange {
+  background: linear-gradient(135deg, #f08a24, #ffc46b);
+}
+
+.menu-icon.pink {
+  background: linear-gradient(135deg, #e05a8a, #ff9bbf);
+}
+
+.menu-text {
+  margin-top: 10rpx;
+  font-size: 23rpx;
+  color: #4d5b55;
+}
+
+.link {
+  color: #12a15a;
+  font-size: 24rpx;
+  font-weight: 400;
+}
+
+.address-form {
+  margin-bottom: 20rpx;
+}
+
+.form-input {
+  margin-bottom: 14rpx;
+}
+
+.form-textarea {
+  width: 100%;
+  height: 120rpx;
+  margin-bottom: 14rpx;
+}
+
+.save-btn {
+  height: 68rpx;
+  line-height: 68rpx;
+}
+
+.address-empty {
+  padding: 30rpx 0;
+}
+
+.address-item {
+  border-top: 1rpx solid #f3f6f4;
+  padding: 20rpx 0;
+}
+
+.address-main {
+  flex: 1;
+}
+
+.address-top {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.address-name {
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.address-phone {
+  font-size: 24rpx;
+  color: #6b7873;
+}
+
+.address-text {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #8b9791;
+}
+
+.address-actions {
+  margin-top: 12rpx;
+  display: flex;
+  justify-content: flex-end;
+  gap: 24rpx;
+}
+
+.address-action {
+  font-size: 23rpx;
+  color: #12a15a;
+}
+
+.address-action.danger {
+  color: #c0432b;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f3f6f4;
+  font-size: 27rpx;
+}
+
+.cell:last-child {
+  border-bottom: none;
+}
+
+.logout {
+  justify-content: center;
+  color: #c0432b;
+  font-weight: 500;
+}

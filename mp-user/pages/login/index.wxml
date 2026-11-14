@@ -1,0 +1,28 @@
+<view class="login-page">
+  <view class="login-hero">
+    <view class="logo">悦</view>
+    <view class="brand">悦享便利</view>
+    <view class="slogan">新鲜好物 · 即刻到家</view>
+  </view>
+
+  <view class="login-card">
+    <view class="login-title">欢迎回来</view>
+    <view class="login-sub">一键登录，享会员价、积分与优惠券</view>
+
+    <view class="demo-info">
+      <view class="demo-row">
+        <text class="label">演示账号</text>
+        <text>{{nickname}}</text>
+      </view>
+      <view class="demo-row">
+        <text class="label">OpenID</text>
+        <text>{{openid}}</text>
+      </view>
+    </view>
+
+    <button class="btn-primary login-btn" bindtap="login" disabled="{{loading}}">{{loading ? '登录中...' : '一键演示登录'}}</button>
+    <view class="skip" bindtap="skip">先逛逛 ›</view>
+  </view>
+
+  <view class="api-tip">接口地址：{{baseUrl}}</view>
+</view>
